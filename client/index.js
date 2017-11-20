@@ -27,7 +27,7 @@ const Client = () => {
         <RouterWithRedux>
           <Scene key="root">
             <Scene key="app" component={App} title="App"/>
-            <Scene key="authorization" hideNavBar={true} component={Authorization} initial = {true} />
+            <Scene key="authorization" hideNavBar={true} component={Authorization}  initial = {true} />
           </Scene>
         </RouterWithRedux>
       </Provider>
