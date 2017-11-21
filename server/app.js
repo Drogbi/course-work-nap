@@ -9,16 +9,12 @@ const { graphqlExpress } =  require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
 Mongoose.Promise = global.Promise;
-Mongoose.connect('mongodb://localhost:27017/apo', (err) => {
+Mongoose.connect('mongodb://localhost:27017/users', (err) => {
   if (err) {
     return err;
   }
   return true;
 });
-
-const seed = require('./seed');
-
-seed();
 
 
 const Schema = require('./schema');

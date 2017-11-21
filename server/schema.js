@@ -1,15 +1,25 @@
 
 const typeDefinitions = `
-type President {
-  name: String
-  party: String
-  term: String
+type User {
+  email: String
+  password: String
 }
-type RootQuery {
-  president(name: String, party: String, term: String): President
+type Login {
+ email: String
+ message: String
 }
+type Mutation {
+  checkUser(email: String, password: String): Login
+  addUser(email: String, password: String): User
+}
+
+type Query {
+  email: String
+}
+
 schema {
-  query: RootQuery
+  query: Query
+  mutation: Mutation
 }
 `;
 

@@ -1,11 +1,10 @@
 const Mongoose = require('mongoose');
 
-const PresidentSchema = Mongoose.Schema({
-  name: String,
-  party: String,
-  term: String,
+const UserSchema = Mongoose.Schema({
+  email: String,
+  password: String,
 });
 
-const President = Mongoose.model('President', PresidentSchema);
+const User = Mongoose.model('User', UserSchema);
 
-module.exports = President;
+module.exports = User;

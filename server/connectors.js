@@ -1,14 +1,12 @@
-const PresidentModel = require('./model');
+const UserModel = require('./model');
 
-class President {
+class User {
   constructor() {
-    this.findPresident = (name) => {
-      const person = PresidentModel.findOne({ name }, (error, data) => {
-        return data;
-      });
-      return person;
-    };
+    this.findUser = (email, password) => {
+      const user = UserModel.findOne({email, password}).exec();
+      return user;
+    }
   }
 }
 
-module.exports = { President };
+module.exports = { User };
