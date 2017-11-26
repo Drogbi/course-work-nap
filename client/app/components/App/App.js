@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, AsyncStorage, ToolbarAndroid, TouchableHighlight, View, Text, TextInput, StyleSheet } from 'react-native';
-import Toolbar from '../Toolbar/Toolbar';
-import appStyles from './appStyles'
-import settingsIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_settings_white_24dp.png';
-import logoIcon from 'material-design-icons/image/drawable-xxxhdpi/ic_camera_white_24dp.png';
-
-import { connect } from 'react-redux';
+import {ActivityIndicator, AsyncStorage, ToolbarAndroid, TouchableHighlight, View } from 'react-native';
+import { connect, } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux';
-
 import { TOKEN } from '../../constants/session'
-
-
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-
+import { getStorageValue } from "../../utils/storage";
+import { setTokenDispatcher } from '../../actions/tokenActions'
 
 
 class App extends Component {
@@ -23,18 +15,11 @@ class App extends Component {
     }
   }
 
-  async _getStorageValue(value){
-    try {
-      return await AsyncStorage.getItem(value);
-    } catch (error) {
-    }
-  }
-
   componentDidMount(){
-    this._getStorageValue(TOKEN)
+    getStorageValue(TOKEN)
       .then((token)=>{
         if(token){
-          console.warn(token);
+          this.props.setTokenDispatcher(token);
           Actions.main();
         } else {
           Actions.authorization();
@@ -51,7 +36,13 @@ class App extends Component {
   }
 }
 
+//export default connect(({routes}) => ({routes}))(App)
 
+const mapStateToProps = (state) => ({
+  routes: state.routes.routes,
+  token: state.token.token,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ setTokenDispatcher }, dispatch);
 
-
-export default connect(({routes}) => ({routes}))(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

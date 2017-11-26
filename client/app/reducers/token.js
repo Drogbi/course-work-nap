@@ -1,18 +1,17 @@
-import { ActionConst } from 'react-native-router-flux';
-
-import { SET_TOKEN } from "../constants/reducers/token";
+import {SET_TOKEN} from "../constants/reducers/token";
 
 const initialState = {
-  scene: {},
+  token: '',
 };
 
 export default function reducer(state = initialState, action = {}) {
+  console.log(action);
   switch (action.type) {
-    case ActionConst.FOCUS:
+    case SET_TOKEN:
       console.log(action);
       return {
         ...state,
-        scene: action.scene,
+        token: action.token,
       };
     default:
       return state;

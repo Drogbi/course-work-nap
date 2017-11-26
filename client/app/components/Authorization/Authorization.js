@@ -2,16 +2,12 @@ import React, {Component} from 'react';
 import {ActivityIndicator, AsyncStorage, KeyboardAvoidingView, Button, Image, ToolbarAndroid, TouchableHighlight, View, Text, TextInput, StyleSheet} from 'react-native';
 import logo from '../../assets/images/bi_logo.png';
 import {mainColor} from "../../constants/colors";
-
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
-
 import authorizationStyles from './authorizationStyles'
-
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TOKEN } from "../../constants/session";
-
 import { setStorageValue } from "../../utils/storage";
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -81,9 +77,6 @@ class Authorization extends Component{
     });
   }
 
-  componentWillMount(){
-
-  }
 
   render(){
     return(
