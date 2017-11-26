@@ -25,6 +25,7 @@ class Main extends Component{
     setStorageValue(TOKEN, '')
       .then(() => {
         Actions.authorization();
+        this.props.client.resetStore()
       })
   }
 

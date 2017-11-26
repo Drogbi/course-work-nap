@@ -20,7 +20,8 @@ import Main from "./app/components/Main/Main";
 import { getStorageValue } from './app/utils/storage'
 import { TOKEN } from "./app/constants/session";
 
-const Client = () => {
+
+const Client =  () => {
   let token;
   getStorageValue(TOKEN)
     .then((val) => {
@@ -30,9 +31,7 @@ const Client = () => {
   const cache = new InMemoryCache();
 
 
-
   const authLink = setContext((_, { headers }) => {
-
     return {
       headers: {
         ...headers,
