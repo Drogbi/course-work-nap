@@ -3,6 +3,7 @@ const {createNote} = require("./db/utils/uitls");
 const resolveFunctions = {
   Mutation: {
     checkUser: async function checkUser(_, {email, password}, ctx) {
+      console.log(ctx.token);
       let userData;
       const user = new ctx.constructor.User();
       await user.findUser(email, password)
@@ -10,9 +11,9 @@ const resolveFunctions = {
           userData = data;
         });
       if (userData) {
-        return {email: email, message: 'Log in success'}
+        return {token: 'token-' + email, message: 'Log in success'}
       } else {
-        return {email: email, message: 'Log in failed'}
+        return {message: 'Log in failed'}
       }
     },
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, Button, Image, ToolbarAndroid, TouchableHighlight, View, Text, TextInput, StyleSheet} from 'react-native';
+import {ActivityIndicator, AsyncStorage, KeyboardAvoidingView, Button, Image, ToolbarAndroid, TouchableHighlight, View, Text, TextInput, StyleSheet} from 'react-native';
 import logo from '../../assets/images/bi_logo.png';
 import {mainColor} from "../../constants/colors";
 
@@ -61,19 +61,32 @@ class Authorization extends Component{
     });
   }
 
+  async _setStorageValue(token){
+    try {
+      return await AsyncStorage.setItem('token', token);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
   _onLogInButton(){
-    console.warn('sdf');
     this.props.checkUserMutation({
       variables: { email: this.state.inputEmail, password: this.state.inputPassword }
     })
       .then(({ data }) => {
       console.warn(data);
         if(data.checkUser.message === 'Log in success'){
-          Actions.app();
+          this._setStorageValue(data.checkUser.token)
+            .then(()=>{
+              Actions.app();
+            });
         }
       }).catch((error) => {
-      console.log('there was an error sending the query', error);
     });
+  }
+
+  componentWillMount(){
+
   }
 
   render(){
@@ -130,7 +143,7 @@ class Authorization extends Component{
 const checkUserMutation = gql`
     mutation checkUser($email: String, $password: String) {
      checkUser(email: $email, password: $password) {
-        email
+        token
         message
       }
     }

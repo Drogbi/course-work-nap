@@ -5,7 +5,7 @@ type User {
   password: String
 }
 type Login {
- email: String
+ token: String
  message: String
 }
 type Mutation {
