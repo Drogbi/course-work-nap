@@ -12,7 +12,6 @@ const RouterWithRedux = connect()(Router);
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo'
 import Main from "./app/components/Main/Main";
-import homeIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_home_white_18dp.png';
 
 
 const Client =  () => {
@@ -28,9 +27,7 @@ const Client =  () => {
       <Provider store={store}>
         <RouterWithRedux>
           <Scene key="root" >
-            <Stack tabs={true} showLabel={true} tabBarPosition={'bottom'} activeTintColor={'#5e98d1'}>
-              <Scene key="main" icon={()=>(<Image source={homeIcon}/>)} hideNavBar={true} component={Main} title="Main"/>
-            </Stack>
+            <Scene key="main" hideNavBar={true} component={Main} title="Main"/>
             <Scene key="app" hideNavBar={true} component={App} title="App"  initial = {true}/>
             <Scene key="authorization" hideNavBar={true} component={Authorization}  />
           </Scene>

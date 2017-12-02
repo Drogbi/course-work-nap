@@ -4,6 +4,9 @@ import carouselIcon from "../../assets/images/icons8-carousel-96.png";
 import barbellIcon from "../../assets/images/icons8-barbell-96.png";
 import schoolIcon from  "../../assets/images/icons8-school-96.png";
 import eventsListStyle from "./eventListStyles"
+import { setViewDispatcher } from "../../actions/viewActions";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 class EventList extends Component {
   constructor(props) {
@@ -18,8 +21,8 @@ class EventList extends Component {
     this._onPress = this._onPress.bind(this);
   }
 
-  _onPress(e){
-    console.log(e.nativeEvent.target);
+  _onPress(item){
+    //this.props.setViewDispatcher('SectionsList');
   }
 
 
@@ -46,4 +49,12 @@ class EventList extends Component {
   }
 }
 
-export default EventList;
+const mapStateToProps = (state) => ({
+  routes: state.routes.routes,
+  token: state.token.token,
+  view: state.view.view,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ setViewDispatcher }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventList);
