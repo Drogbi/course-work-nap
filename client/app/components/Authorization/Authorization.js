@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, AsyncStorage, KeyboardAvoidingView, Button, Image, ToolbarAndroid, TouchableHighlight, View, Text, TextInput, StyleSheet} from 'react-native';
 import logo from '../../assets/images/bi_logo.png';
-import {mainColor} from "../../constants/colors";
+import { MAIN_COLOR } from "../../constants/colors";
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import authorizationStyles from './authorizationStyles'
@@ -54,9 +54,10 @@ class Authorization extends Component{
       variables: { email: this.state.inputEmail, password: this.state.inputPassword }
     })
       .then(({ data }) => {
-        console.warn('got data', data);
-      }).catch((error) => {
-      console.log('there was an error sending the query', error);
+      })
+      .catch((error) => {
+        console.log('there was an error sending the query', error);
+        throw error;
     });
   }
 
@@ -66,14 +67,15 @@ class Authorization extends Component{
       variables: { email: this.state.inputEmail, password: this.state.inputPassword }
     })
       .then(({ data }) => {
-      console.warn(data);
         if(data.checkUser.message === 'Log in success'){
           setStorageValue(TOKEN, data.checkUser.token)
             .then(()=>{
               Actions.app();
             });
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
+        throw error;
     });
   }
 
@@ -104,22 +106,22 @@ class Authorization extends Component{
                 placeholder={'Password'}
               />
             </View>
-            <View style={authorizationStyles.buttonGroup}>
+            <View style={ authorizationStyles.buttonGroup }>
               <Button
-                style={authorizationStyles.logInButton}
+                style={ authorizationStyles.logInButton }
                 title="Log In"
-                color={mainColor}
-                onPress={this._onLogInButton}
+                color={ MAIN_COLOR }
+                onPress={ this._onLogInButton }
               />
               <View>
                 <View style={{alignSelf:'center',position:'absolute',borderBottomColor:'gray',borderBottomWidth:1,height:'50%',width:'100%'}}/>
                 <Text style={{alignSelf:'center',padding:10, backgroundColor:'white'}}>OR</Text>
               </View>
               <Button
-                style={authorizationStyles.signUpButton}
+                style={ authorizationStyles.signUpButton }
                 title="Create new BookIt account"
-                color={mainColor}
-                onPress={this._onSignUpButton}
+                color={ MAIN_COLOR }
+                onPress={ this._onSignUpButton }
               />
             </View>
           </View>

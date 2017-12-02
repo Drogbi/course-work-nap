@@ -1,10 +1,16 @@
 import { StyleSheet } from 'react-native';
+import { MAIN_COLOR } from "../../constants/colors";
 
 export default mainStyles = StyleSheet.create({
+  root:{
+    height: '100%',
+    backgroundColor: 'white',
+  },
   toolbar: {
-    backgroundColor: '#2196F3',
-    height: 56,
-    alignSelf: 'stretch'
+    backgroundColor: MAIN_COLOR,
+    height: 58,
+    alignItems: 'center',
+    justifyContent:'center',
   },
   container: {
     backgroundColor: '#dddddd',

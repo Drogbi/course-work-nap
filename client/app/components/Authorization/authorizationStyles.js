@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { mainColor } from "../../constants/colors";
+import { MAIN_COLOR } from "../../constants/colors";
 
 const MARGIN_HORIZONTAL_VALUE = 50;
 

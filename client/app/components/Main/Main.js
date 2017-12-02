@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
-import { ToolbarAndroid, View, Text, TextInput, StyleSheet } from 'react-native';
+import {Dimensions, StatusBar, ToolbarAndroid, View, Text, TextInput, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-
-import settingsIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_settings_white_24dp.png';
-import logoIcon from 'material-design-icons/image/drawable-xxxhdpi/ic_camera_white_24dp.png';
-import exitIcon from 'material-design-icons/navigation/drawable-xxxhdpi/ic_cancel_white_24dp.png';
-
+import logoXS from '../../assets/images/bi_logo_xs.png';
+import exitIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_exit_to_app_white_48dp.png';
 import mainStyles from "./mainStyles";
-
 import { setStorageValue } from "../../utils/storage";
 import { TOKEN } from "../../constants/session";
+import EventList from "../EventsList/EventList"
+import {MAIN_COLOR} from "../../constants/colors";
+import {BoxShadow} from 'react-native-shadow'
 
-
-
+const shadowOpt = {
+  ...Dimensions.get('window'),
+  height: 58,
+  color:"#000",
+  border:3,
+  radius:1,
+  opacity:0.2,
+  x:0,
+  y:0,
+};
 
 class Main extends Component{
   constructor(props){
@@ -25,20 +32,26 @@ class Main extends Component{
     setStorageValue(TOKEN, '')
       .then(() => {
         Actions.authorization();
-        this.props.client.resetStore()
       })
   }
 
   render(){
     return(
-      <View>
-        <ToolbarAndroid
-          style={mainStyles.toolbar}
-          logo={logoIcon}
-          title="BookIt"
-          actions={[{title: 'Log Out', icon: exitIcon, show: 'always'}]}
-          onActionSelected={this._onLogOut}
+      <View style={ mainStyles.root}>
+        <StatusBar
+          backgroundColor={MAIN_COLOR}
+          barStyle="light-content"
         />
+        <BoxShadow setting={shadowOpt}>
+          <ToolbarAndroid
+            style={ mainStyles.toolbar }
+            logo={ logoXS }
+            actions={ [{title: 'Log Out', icon: exitIcon, show: 'always'}] }
+            onActionSelected={ this._onLogOut }
+            contentInsetStart={168}
+          />
+        </BoxShadow>
+        <EventList></EventList>
       </View>
     );
   }
