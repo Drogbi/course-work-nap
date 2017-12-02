@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Dimensions, StatusBar, ToolbarAndroid, View, Text, TextInput, StyleSheet } from 'react-native';
+import { Dimensions, StatusBar, ToolbarAndroid, View, Text, TextInput, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import logoXS from '../../assets/images/bi_logo_xs.png';
@@ -8,19 +8,14 @@ import mainStyles from "./mainStyles";
 import { setStorageValue } from "../../utils/storage";
 import { TOKEN } from "../../constants/session";
 import EventList from "../EventsList/EventList"
-import {MAIN_COLOR} from "../../constants/colors";
-import {BoxShadow} from 'react-native-shadow'
-
-const shadowOpt = {
-  ...Dimensions.get('window'),
-  height: 58,
-  color:"#000",
-  border:3,
-  radius:1,
-  opacity:0.2,
-  x:0,
-  y:0,
-};
+import { MAIN_COLOR } from "../../constants/colors";
+import { BoxShadow } from 'react-native-shadow'
+import { SHADOW_OPT } from "../../constants/shadowStyles";
+import VIEWS from '../../constants/views'
+import { setTokenDispatcher } from "../../actions/tokenActions";
+import { setViewDispatcher } from "../../actions/viewActions";
+import { bindActionCreators } from 'redux'
+import Viewer from '../Viewer/Viewer'
 
 class Main extends Component{
   constructor(props){
@@ -42,7 +37,7 @@ class Main extends Component{
           backgroundColor={MAIN_COLOR}
           barStyle="light-content"
         />
-        <BoxShadow setting={shadowOpt}>
+        <BoxShadow setting={ SHADOW_OPT }>
           <ToolbarAndroid
             style={ mainStyles.toolbar }
             logo={ logoXS }
@@ -51,10 +46,18 @@ class Main extends Component{
             contentInsetStart={168}
           />
         </BoxShadow>
-        <EventList></EventList>
+        <Viewer>{VIEWS[this.props.view]}</Viewer>
       </View>
     );
   }
 }
 
-export default connect(({routes}) => ({routes}))(Main)
+const mapStateToProps = (state) => ({
+  routes: state.routes.routes,
+  token: state.token.token,
+  view: state.view.view,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ setTokenDispatcher, setViewDispatcher }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

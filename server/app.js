@@ -30,7 +30,6 @@ const executableSchema = makeExecutableSchema({
 app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
   schema: executableSchema,
   context: {
-    token: request.headers.authorization,
     constructor: Connectors,
   }
 })));

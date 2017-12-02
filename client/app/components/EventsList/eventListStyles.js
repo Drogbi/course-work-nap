@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {MAIN_COLOR} from "../../constants/colors";
+import {MAIN_COLOR, WHITE_COLOR} from "../../constants/colors";
 
 export default eventListStyles = StyleSheet.create({
   root: {
@@ -12,7 +12,7 @@ export default eventListStyles = StyleSheet.create({
     height: 130,
     backgroundColor: MAIN_COLOR,
     flex:1,
-    flexDirection:'row',
+    flexDirection:'column',
     alignItems:'center',
     justifyContent:'center',
     borderRadius: 10,
@@ -21,5 +21,8 @@ export default eventListStyles = StyleSheet.create({
   eventImage: {
     width: 100,
     height: 100,
+  },
+  eventTitle: {
+    color: WHITE_COLOR
   }
 });
