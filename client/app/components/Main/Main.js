@@ -16,8 +16,9 @@ import { setTokenDispatcher } from "../../actions/tokenActions";
 import { setViewDispatcher } from "../../actions/viewActions";
 import { bindActionCreators } from 'redux'
 import Viewer from '../Viewer/Viewer'
+import TabNavigator from '../TabNavigator/TabNavigator'
 
-class Main extends Component{
+class TileList extends Component{
   constructor(props){
     super(props);
   }
@@ -47,6 +48,7 @@ class Main extends Component{
           />
         </BoxShadow>
         <Viewer>{VIEWS[this.props.view]}</Viewer>
+        <TabNavigator/>
       </View>
     );
   }
@@ -60,4 +62,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTokenDispatcher, setViewDispatcher }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(TileList);

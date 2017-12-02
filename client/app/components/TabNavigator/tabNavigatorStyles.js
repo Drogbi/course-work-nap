@@ -3,20 +3,22 @@ import { MAIN_COLOR } from "../../constants/colors";
 
 export default tabNavigatorStyles = StyleSheet.create({
   root:{
-    height: '100%',
-    backgroundColor: 'white',
-  },
-  toolbar: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 200,
+    alignSelf: 'flex-end',
     backgroundColor: MAIN_COLOR,
-    height: 58,
-    alignItems: 'center',
-    justifyContent:'center',
+    alignItems:'center',
   },
-  container: {
-    backgroundColor: '#dddddd',
+  tab:{
+    width: 200,
     height: 50,
-    margin: 20,
-    marginBottom: 0,
-    paddingLeft: 10
+  },
+  separator: {
+    height: 100,
+    width: 2,
+    backgroundColor: '#d3d3d3'
   }
 });
