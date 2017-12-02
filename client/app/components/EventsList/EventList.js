@@ -23,6 +23,7 @@ class EventList extends Component {
 
   _onPress(item){
     //this.props.setViewDispatcher('SectionsList');
+    console.log(item.title);
   }
 
 
@@ -33,7 +34,7 @@ class EventList extends Component {
           data={this.state.data}
           numColumns = {2}
           renderItem={({item}) => (
-            <TouchableOpacity style={eventsListStyle.event} onPress={this._onPress}>
+            <TouchableOpacity style={eventsListStyle.event} onPress={() => this._onPress(item)}>
               <Image
                 style={eventsListStyle.eventImage}
                 source={item.icon}
