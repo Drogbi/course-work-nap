@@ -7,7 +7,7 @@ import exitIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_exit_to_a
 import mainStyles from "./mainStyles";
 import { setStorageValue } from "../../utils/storage";
 import { TOKEN } from "../../constants/session";
-import EventList from "../EventsList/EventList"
+import EventList from "../TileList/TileList"
 import { MAIN_COLOR } from "../../constants/colors";
 import { BoxShadow } from 'react-native-shadow'
 import { SHADOW_OPT } from "../../constants/shadowStyles";

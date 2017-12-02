@@ -1,7 +1,7 @@
 import {SET_VIEW} from "../constants/reducers/view";
 
 const initialState = {
-  view: 'EventsList',
+  view: 'TileList',
 };
 
 export default function reducer(state = initialState, action = {}) {

@@ -1,0 +1,1 @@
+export const SET_TILE_LIST_DATA = 'SET_TILE_LIST_DATA';
