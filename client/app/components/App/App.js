@@ -38,9 +38,7 @@ class App extends Component {
 
 
 const mapStateToProps = (state) => ({
-  routes: state.routes.routes,
   token: state.token.token,
-  view: state.view.view,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTokenDispatcher }, dispatch);

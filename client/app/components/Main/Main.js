@@ -47,7 +47,7 @@ class TileList extends Component{
             contentInsetStart={168}
           />
         </BoxShadow>
-        <Viewer>{VIEWS[this.props.view]}</Viewer>
+        <Viewer viewProps={this.props.viewData.viewProps} >{VIEWS[this.props.viewData.viewRoute]}</Viewer>
         <TabNavigator/>
       </View>
     );
@@ -57,7 +57,7 @@ class TileList extends Component{
 const mapStateToProps = (state) => ({
   routes: state.routes.routes,
   token: state.token.token,
-  view: state.view.view,
+  viewData: state.view.viewData,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTokenDispatcher, setViewDispatcher }, dispatch);

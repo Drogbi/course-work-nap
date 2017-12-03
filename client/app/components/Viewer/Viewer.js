@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import viewerStyles from './viewerStyles'
 
 class Viewer extends Component {
   constructor() {
@@ -10,8 +11,8 @@ class Viewer extends Component {
 
   render () {
     return (
-      <View>
-        <this.props.children/>
+      <View style={viewerStyles.root}>
+        <this.props.children {...this.props.viewProps}/>
       </View>
     )
   }

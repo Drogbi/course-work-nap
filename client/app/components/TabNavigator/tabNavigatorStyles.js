@@ -3,11 +3,11 @@ import { MAIN_COLOR } from "../../constants/colors";
 
 export default tabNavigatorStyles = StyleSheet.create({
   root:{
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    height: 200,
+    height: 70,
     alignSelf: 'flex-end',
     backgroundColor: MAIN_COLOR,
     alignItems:'center',

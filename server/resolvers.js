@@ -20,6 +20,22 @@ const resolveFunctions = {
       createNote(data);
       return {email: data.email, password: data.password};
     }
+  },
+  Query: {
+    getItems: async function getItems(_, {token, title}, ctx) {
+      let itemsData;
+      const eventItems = new ctx.constructor.EventItems();
+      await eventItems.findEventItems()
+        .then((data) => {
+          itemsData = data;
+        });
+      if (itemsData) {
+        console.log(itemsData);
+        return itemsData;
+      } else {
+        return {error: 'Error to fetch items'}
+      }
+    }
   }
 };
 

@@ -12,6 +12,11 @@ export default sportSectionsListData = {
     { icon: tennisIcon, title: 'Tennis' },
   ],
   _onPress(item){
-    console.log(item.title);
+    switch(item.title){
+      case 'Swimming': this.props.setViewDispatcher('ItemsList'); break;
+      case 'Fitness': this.props.setViewDispatcher('ItemsList'); break;
+      case 'Gym': this.props.setViewDispatcher('ItemsList', { title: 'Gym' }); break;
+      case 'Tennis': this.props.setViewDispatcher('ItemsList', { title: 'Tennis' }); break;
+    }
   }
 };

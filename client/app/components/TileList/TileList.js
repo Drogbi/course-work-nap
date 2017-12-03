@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setTileListDataDispatcher } from "../../actions/tileListActions";
 
-class EventList extends Component {
+class TileList extends Component {
   constructor(props) {
     super(props);
-    this._onPress = this.props.tileListData._onPress.bind(this);
   }
 
 
@@ -20,7 +19,7 @@ class EventList extends Component {
           data={this.props.tileListData.items}
           numColumns = {2}
           renderItem={({item}) => (
-            <TouchableOpacity style={tileListStyle.event} onPress={() => this._onPress(item)}>
+            <TouchableOpacity style={tileListStyle.event} onPress={() => this.props.tileListData._onPress.call(this, item)}>
               <Image
                 style={tileListStyle.eventImage}
                 source={item.icon}
@@ -37,12 +36,9 @@ class EventList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  routes: state.routes.routes,
-  token: state.token.token,
-  view: state.view.view,
   tileListData: state.tileList.tileListData
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTileListDataDispatcher, setViewDispatcher }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventList);
+export default connect(mapStateToProps, mapDispatchToProps)(TileList);

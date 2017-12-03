@@ -1,4 +1,4 @@
-const UserModel = require('./model');
+const {EventItemModel, UserModel} = require('./model');
 
 class User {
   constructor() {
@@ -9,4 +9,14 @@ class User {
   }
 }
 
-module.exports = { User };
+class EventItems {
+  constructor() {
+    this.findEventItems = (title) => {
+      console.log(title);
+      const eventItems = EventItemModel.find({}).exec();
+      return eventItems;
+    }
+  }
+}
+
+module.exports = { User, EventItems };

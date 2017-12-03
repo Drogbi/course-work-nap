@@ -42,11 +42,7 @@ class TabNavigator extends Component{
   }
 }
 
-const mapStateToProps = (state) => ({
-  routes: state.routes.routes,
-  token: state.token.token,
-  view: state.view.view,
-});
+const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTileListDataDispatcher, setViewDispatcher }, dispatch);
 

@@ -5,6 +5,22 @@ const UserSchema = Mongoose.Schema({
   password: String,
 });
 
-const User = Mongoose.model('User', UserSchema);
+const EventItemSchema = Mongoose.Schema({
+  name: String,
+  section: String,
+  schedule: {
+    mon: [String],
+    tue: [String],
+    wed: [String],
+    thu: [String],
+    fri: [String],
+    sat: [String],
+    sun: [String]
+  },
+  price: String
+});
 
-module.exports = User;
+const UserModel = Mongoose.model('User', UserSchema);
+const EventItemModel = Mongoose.model('EventItem', EventItemSchema);
+
+module.exports = {EventItemModel, UserModel};

@@ -1,7 +1,7 @@
 import {SET_VIEW} from "../constants/reducers/view";
 
 const initialState = {
-  view: 'TileList',
+  viewData: { viewRoute:'TileList', viewProps: {} },
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action = {}) {
     case SET_VIEW:
       return {
         ...state,
-        view: action.view,
+        viewData: action.viewData,
       };
     default:
       return state;

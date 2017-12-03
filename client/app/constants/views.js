@@ -1,6 +1,8 @@
 import TileList from '../components/TileList/TileList';
-import EventNotesLists from '../components/EventNotesList/EventNotesList'
+import ItemsList from '../components/ItemsList/ItemsList'
+
 
 export default VIEWS = {
-  TileList
+  TileList,
+  ItemsList,
 }
