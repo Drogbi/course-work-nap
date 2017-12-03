@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {TouchableOpacity, Image, View, Text, FlatList } from "react-native";
+import {TouchableOpacity, Image, View, Text, FlatList, Button } from "react-native";
 import tileListStyle from "./itemsListStyles"
 import { setViewDispatcher } from "../../actions/viewActions";
 import { connect } from 'react-redux';
@@ -13,11 +13,17 @@ class ItemsList extends Component {
     super(props);
     this.state = {
       data: {},
-    }
+    };
+    this._onLogInButton = this._onLogInButton.bind(this);
   }
 
   componentDidMount(){
-    this.props.getItemsQuery({variables: { token: this.props.token, title: this.props.title }})
+
+  }
+
+  _onLogInButton(){
+    console.log(this.props);
+    this.props.getItemsQuery.refetch({variables: { token: this.props.token, title: this.props.title }})
       .then(({ data }) => {
         if(data){
           this.setState({data});
@@ -32,6 +38,10 @@ class ItemsList extends Component {
   render() {
     return (
       <View style={tileListStyle.root}>
+        <Button
+          title="Log In"
+          onPress={ this._onLogInButton }
+        />
         {/*<FlatList*/}
           {/*data={this.props.tileListData.items}*/}
           {/*numColumns = {2}*/}
@@ -52,17 +62,27 @@ class ItemsList extends Component {
   }
 }
 
-
 const getItemsQuery = gql`
     query getItems($token: String, $title: String) {
      getItems(token: $token, title: $title) {
-        data
+      name
+      section
+      schedule {
+        mon
+        thu
+        wed
+        thu
+        fri
+        sat
+        sun
+      }
+      price
       }
     }
 `;
 
 const ItemsListWithQueries = compose(
-  graphql(getItemsQuery, {name: 'getItemsQuery'}),
+  graphql(getItemsQuery, {name: 'getItemsQuery'})
 )(ItemsList);
 
 

@@ -25,7 +25,7 @@ const resolveFunctions = {
     getItems: async function getItems(_, {token, title}, ctx) {
       let itemsData;
       const eventItems = new ctx.constructor.EventItems();
-      await eventItems.findEventItems()
+      await eventItems.findEventItems(title.toLowerCase())
         .then((data) => {
           itemsData = data;
         });
