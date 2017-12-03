@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {TouchableOpacity, Image, View, Text, FlatList, Button } from "react-native";
-import tileListStyle from "./itemsListStyles"
+import itemsListStyle from "./itemsListStyles"
 import { setViewDispatcher } from "../../actions/viewActions";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,22 +12,15 @@ class ItemsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
+      data: [],
     };
-    this._onLogInButton = this._onLogInButton.bind(this);
   }
 
   componentDidMount(){
-
-  }
-
-  _onLogInButton(){
-    console.log(this.props);
     this.props.getItemsQuery.refetch({variables: { token: this.props.token, title: this.props.title }})
       .then(({ data }) => {
         if(data){
-          this.setState({data});
-          console.log(data);
+          this.setState({data: data.getItems});
         }
       })
       .catch((error) => {
@@ -37,25 +30,18 @@ class ItemsList extends Component {
 
   render() {
     return (
-      <View style={tileListStyle.root}>
-        <Button
-          title="Log In"
-          onPress={ this._onLogInButton }
+      <View style={itemsListStyle.root}>
+        <FlatList
+          data={this.state.data}
+          numColumns = {1}
+          renderItem={({item}) => (
+            <TouchableOpacity style={itemsListStyle.event}>
+              <Text style={itemsListStyle.eventTitle}>{item.name}</Text>
+              <Text style={itemsListStyle.eventTitle}>{item.price}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.name}
         />
-        {/*<FlatList*/}
-          {/*data={this.props.tileListData.items}*/}
-          {/*numColumns = {2}*/}
-          {/*renderItem={({item}) => (*/}
-            {/*<TouchableOpacity style={tileListStyle.event} onPress={() => this.props.tileListData._onPress.call(this, item)}>*/}
-              {/*<Image*/}
-                {/*style={tileListStyle.eventImage}*/}
-                {/*source={item.icon}*/}
-              {/*/>*/}
-              {/*<Text style={tileListStyle.eventTitle}>{item.title}</Text>*/}
-            {/*</TouchableOpacity>*/}
-          {/*)}*/}
-          {/*keyExtractor={item => item.title}*/}
-        {/*/>*/}
       </View>
 
     );

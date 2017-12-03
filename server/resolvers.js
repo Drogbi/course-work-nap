@@ -30,7 +30,6 @@ const resolveFunctions = {
           itemsData = data;
         });
       if (itemsData) {
-        console.log(itemsData);
         return itemsData;
       } else {
         return {error: 'Error to fetch items'}
