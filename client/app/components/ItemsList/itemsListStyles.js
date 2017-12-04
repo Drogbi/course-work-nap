@@ -8,22 +8,24 @@ export default tileListStyles = StyleSheet.create({
     padding: 20,
   },
   event: {
-    width: 130,
+    width: 355,
     height: 130,
     backgroundColor: MAIN_COLOR,
     flex:1,
-    flexDirection:'column',
+    flexDirection:'row',
     alignItems:'center',
-    justifyContent:'center',
+    justifyContent: 'space-between',
     borderRadius: 10,
     margin: 10,
   },
-  eventImage: {
-    width: 100,
-    height: 100,
+  name: {
+    marginLeft: 50,
+    color: 'white',
+    fontSize: 20,
   },
-  eventTitle: {
-    color: WHITE_COLOR
+  price: {
+    marginRight: 50,
+    color: 'white',
+    fontSize: 20,
   },
-
 });

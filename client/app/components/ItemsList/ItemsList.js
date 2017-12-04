@@ -14,6 +14,7 @@ class ItemsList extends Component {
     this.state = {
       data: [],
     };
+    this._onPress = this._onPress.bind(this);
   }
 
   componentDidMount(){
@@ -21,12 +22,19 @@ class ItemsList extends Component {
       .then(({ data }) => {
         if(data){
           this.setState({data: data.getItems});
+          console.log(this.state)
         }
       })
       .catch((error) => {
         throw error;
       });
   }
+
+  _onPress(item){
+    this.props.setViewDispatcher('ItemInfo', item);
+    console.log(item);
+  }
+
 
   render() {
     return (
@@ -35,9 +43,9 @@ class ItemsList extends Component {
           data={this.state.data}
           numColumns = {1}
           renderItem={({item}) => (
-            <TouchableOpacity style={itemsListStyle.event}>
-              <Text style={itemsListStyle.eventTitle}>{item.name}</Text>
-              <Text style={itemsListStyle.eventTitle}>{item.price}</Text>
+            <TouchableOpacity style={itemsListStyle.event} onPress = {() => this._onPress(item)}>
+              <Text style={itemsListStyle.name}>{item.name}</Text>
+              <Text style={itemsListStyle.price}>{item.price + ' BYN'}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={item => item.name}
@@ -55,7 +63,7 @@ const getItemsQuery = gql`
       section
       schedule {
         mon
-        thu
+        tue
         wed
         thu
         fri

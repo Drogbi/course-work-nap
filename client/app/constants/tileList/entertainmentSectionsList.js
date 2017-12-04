@@ -8,10 +8,6 @@ export default sportSectionsListData = {
     { icon: partyIcon, title: 'Party' },
     { icon: festIcon, title: 'Fest' },
     { icon: parkIcon, title: 'Amusement park' },
-    { icon: parkIcon, title: 'Amusement park' },
-    { icon: parkIcon, title: 'Amusement park' },
-    { icon: parkIcon, title: 'Amusement park' },
-    { icon: parkIcon, title: 'Amusement park' },
 
   ],
   _onPress(item){
