@@ -5,9 +5,11 @@ import { setViewDispatcher } from "../../actions/viewActions";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setTileListDataDispatcher } from "../../actions/tileListActions";
+import { addToCartDispatcher } from "../../actions/cartActions";
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import itemInfoStyle from './itemInfoStyles'
+import addShopCartIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_add_shopping_cart_white_18dp.png';
 
 class NavTab extends Component {
   constructor(props){
@@ -17,7 +19,7 @@ class NavTab extends Component {
     return (
       <TouchableOpacity onPress={() => this.props.onPress(this.props.children)}>
         <View style={itemInfoStyle.weekDayTab}>
-          <Text style={itemInfoStyle.weekDayTabText}>{this.props.children}</Text>
+          <Text style={itemInfoStyle.weekDayTabText}>{this.props.children.slice(0,3)}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -28,7 +30,7 @@ class NavTab extends Component {
 class WeekDayNavigator extends Component{
   constructor(props){
     super(props);
-    this.weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   }
   render(){
     return (
@@ -42,20 +44,12 @@ class WeekDayNavigator extends Component{
 class TimeTab extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      active: false,
-    };
-    this._onPress = this._onPress.bind(this);
-  }
-
-  _onPress(){
-    this.setState({active: !this.state.active});
   }
 
   render(){
     return (
-      <TouchableOpacity onPress={() =>{this._onPress(); this.props.onPress(this.props.children)}}>
-        <View style={this.state.active ? itemInfoStyle.activeTimeTab : itemInfoStyle.timeTab}>
+      <TouchableOpacity onPress={() =>{this.props.onPress(this.props.children)}}>
+        <View style={this.props.activeTimes.includes(this.props.children) ? itemInfoStyle.activeTimeTab : itemInfoStyle.timeTab}>
           <Text style ={itemInfoStyle.timeTabText}>{this.props.children}</Text>
         </View>
       </TouchableOpacity>
@@ -77,7 +71,7 @@ class ItemInfo extends Component {
   }
 
   _onWeekDayPress(weekDay){
-    this.setState({activeWeekDay: weekDay});
+    this.setState({activeWeekDay: weekDay, activeTimes: []});
   }
 
   _toggleTime(time){
@@ -91,20 +85,32 @@ class ItemInfo extends Component {
     console.log(this.state.activeTimes);
   }
 
+  _addToCartButtonClick = () => {
+    console.log('click');
+    this.props.addToCartDispatcher({name: this.props.viewData.viewProps.name, week: this.state.activeWeekDay, items: this.state.activeTimes, price: this.props.viewData.viewProps.price})
+  };
+
+
   render() {
     return (
       <View style={itemInfoStyle.root}>
+        <TouchableOpacity  style={this.state.activeTimes.length ? itemInfoStyle.addToCartButtonEnable : itemInfoStyle.addToCartButtonDisable} onPress={ () => this._addToCartButtonClick()}>
+          <Image
+            resizeMode={'contain'}
+            source={addShopCartIcon}
+          />
+        </TouchableOpacity>
         <Text style={itemInfoStyle.name}>{this.props.name}</Text>
         <Text style={itemInfoStyle.price}>{this.props.price + ' BYN'}</Text>
         <WeekDayNavigator onWeekDayPress={this._onWeekDayPress}/>
-        <View style={itemInfoStyle.activeWeekDayContainer}>
+        <View style={this.state.activeWeekDay && itemInfoStyle.activeWeekDayContainer}>
           <Text style={itemInfoStyle.activeWeekDay}>{this.state.activeWeekDay}</Text>
         </View>
         <FlatList
-          data={this.props.schedule[this.state.activeWeekDay.toLowerCase()]}
+          data={this.state.activeWeekDay && this.props.schedule[this.state.activeWeekDay.toLowerCase().slice(0, 3)].map((time) => {return {time,  activeTimes: this.state.activeTimes}})}
           numColumns = {4}
           renderItem={({item}) => (
-            <TimeTab onPress={this._toggleTime}>{item}</TimeTab>
+            <TimeTab  onPress={this._toggleTime} activeTimes = {item.activeTimes}>{item.time}</TimeTab>
           )}
           keyExtractor={item => item}
         />
@@ -118,9 +124,10 @@ const mapStateToProps = (state) => ({
   routes: state.routes.routes,
   token: state.token.token,
   viewData: state.view.viewData,
-  tileListData: state.tileList.tileListData
+  tileListData: state.tileList.tileListData,
+  cartItems: state.cart.cartItems,
 });
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ setTileListDataDispatcher, setViewDispatcher }, dispatch);
+  bindActionCreators({ addToCartDispatcher, setTileListDataDispatcher, setViewDispatcher }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemInfo);

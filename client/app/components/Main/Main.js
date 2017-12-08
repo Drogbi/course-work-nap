@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import logoXS from '../../assets/images/bi_logo_xs.png';
 import exitIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_exit_to_app_white_48dp.png';
+import shopCartIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_shopping_cart_white_48dp.png';
 import mainStyles from "./mainStyles";
 import { setStorageValue } from "../../utils/storage";
 import { TOKEN } from "../../constants/session";

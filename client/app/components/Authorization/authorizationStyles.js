@@ -42,5 +42,8 @@ export  default appStyles = StyleSheet.create({
   },
   keyboardAvoiding:{
 
+  },
+  fail:{
+    color: 'red',
   }
 });

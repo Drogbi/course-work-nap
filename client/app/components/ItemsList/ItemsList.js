@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { setTileListDataDispatcher } from "../../actions/tileListActions";
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import deleteIcon from 'material-design-icons/action/drawable-xxxhdpi/ic_delete_white_18dp.png';
+
 
 class ItemsList extends Component {
   constructor(props) {
@@ -46,6 +48,12 @@ class ItemsList extends Component {
             <TouchableOpacity style={itemsListStyle.event} onPress = {() => this._onPress(item)}>
               <Text style={itemsListStyle.name}>{item.name}</Text>
               <Text style={itemsListStyle.price}>{item.price + ' BYN'}</Text>
+              {this.props.isAdmin && <TouchableOpacity style={itemsListStyle.deleteButton}>
+                <Image
+                  resizeMode={'contain'}
+                  source={deleteIcon}
+                />
+              </TouchableOpacity>}
             </TouchableOpacity>
           )}
           keyExtractor={item => item.name}
@@ -84,7 +92,8 @@ const mapStateToProps = (state) => ({
   routes: state.routes.routes,
   token: state.token.token,
   viewData: state.view.viewData,
-  tileListData: state.tileList.tileListData
+  tileListData: state.tileList.tileListData,
+  isAdmin: state.admin.isAdmin,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTileListDataDispatcher, setViewDispatcher }, dispatch);

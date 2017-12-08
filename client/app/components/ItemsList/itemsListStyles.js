@@ -8,6 +8,7 @@ export default tileListStyles = StyleSheet.create({
     padding: 20,
   },
   event: {
+    position: 'relative',
     width: 355,
     height: 130,
     backgroundColor: MAIN_COLOR,
@@ -24,8 +25,21 @@ export default tileListStyles = StyleSheet.create({
     fontSize: 20,
   },
   price: {
-    marginRight: 50,
+    marginRight: 70,
     color: 'white',
     fontSize: 20,
   },
+  deleteButton: {
+    flex:0,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 0,
+    right: 0,
+    zIndex: 1000,
+    borderRadius: 10,
+    width: 60,
+    height: 130,
+    backgroundColor: '#ff3232'
+  }
 });

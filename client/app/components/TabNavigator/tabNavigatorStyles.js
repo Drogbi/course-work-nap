@@ -13,8 +13,15 @@ export default tabNavigatorStyles = StyleSheet.create({
     alignItems:'center',
   },
   tab:{
-    width: 200,
+    width: 130,
     height: 50,
+  },
+  counter:{
+    color: 'white',
+    position: 'absolute',
+    top: 0,
+    right: 20,
+    fontSize: 20,
   },
   separator: {
     height: 100,

@@ -87,5 +87,28 @@ export default tileListStyles = StyleSheet.create({
     borderTopWidth: 3,
     borderBottomWidth: 3,
     borderColor: MAIN_COLOR,
+  },
+  addToCartButtonEnable:{
+    flex:0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 1000,
+    borderRadius: 10,
+    width: 80,
+    height: 80,
+    backgroundColor: '#3CB371'
+  },
+  addToCartButtonDisable:{
+    position: 'absolute',
+
+  },
+  addToCartButtonDisableText:{
+    color: 'white',
+  },
+  addToCartButtonEnableText:{
+    fontSize: 20,
   }
 });

@@ -9,6 +9,8 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TOKEN } from "../../constants/session";
 import { setStorageValue } from "../../utils/storage";
+import { bindActionCreators } from 'redux';
+import { setIsAdminDispatcher } from "../../actions/adminAciton";
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -25,6 +27,7 @@ class Authorization extends Component{
       inputEmail: '',
       inputPassword: '',
       inputsValidation: false,
+      fail: false,
     };
   }
 
@@ -70,8 +73,11 @@ class Authorization extends Component{
         if(data.checkUser.message === 'Log in success'){
           setStorageValue(TOKEN, data.checkUser.token)
             .then(()=>{
+              this.props.setIsAdminDispatcher(data.checkUser.isAdmin);
               Actions.app();
             });
+        } else{
+          this.setState({fail:true})
         }
       })
       .catch((error) => {
@@ -106,6 +112,7 @@ class Authorization extends Component{
                 placeholder={'Password'}
               />
             </View>
+            {this.state.fail && <Text style={authorizationStyles.fail}>log in failed</Text>}
             <View style={ authorizationStyles.buttonGroup }>
               <Button
                 style={ authorizationStyles.logInButton }
@@ -136,6 +143,7 @@ const checkUserMutation = gql`
      checkUser(email: $email, password: $password) {
         token
         message
+        isAdmin
       }
     }
 `;
@@ -154,5 +162,16 @@ const AuthorizationWithMutations = compose(
   graphql(checkUserMutation, {name: 'checkUserMutation'})
 )(Authorization);
 
+const mapStateToProps = (state) => ({
+  routes: state.routes.routes,
+  token: state.token.token,
+  viewData: state.view.viewData,
+  tileListData: state.tileList.tileListData,
+  cartItems: state.cart.cartItems,
+  isAdmin: state.admin.isAdmin,
+});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ setIsAdminDispatcher }, dispatch);
 
-export default connect(({routes}) => ({routes}))(AuthorizationWithMutations)
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationWithMutations);
