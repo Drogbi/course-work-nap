@@ -37,6 +37,12 @@ class ItemsList extends Component {
     console.log(item);
   }
 
+  _onDeleteButtonPress = (name) => {
+    this.props.deleteEventItem({
+      variables: { token: this.props.token, name }
+    });
+  };
+
 
   render() {
     return (
@@ -48,7 +54,7 @@ class ItemsList extends Component {
             <TouchableOpacity style={itemsListStyle.event} onPress = {() => this._onPress(item)}>
               <Text style={itemsListStyle.name}>{item.name}</Text>
               <Text style={itemsListStyle.price}>{item.price + ' BYN'}</Text>
-              {this.props.isAdmin && <TouchableOpacity style={itemsListStyle.deleteButton}>
+              {this.props.isAdmin && <TouchableOpacity onPress={() => this._onDeleteButtonPress(item.name)} style={itemsListStyle.deleteButton}>
                 <Image
                   resizeMode={'contain'}
                   source={deleteIcon}
@@ -83,8 +89,16 @@ const getItemsQuery = gql`
     }
 `;
 
-const ItemsListWithQueries = compose(
-  graphql(getItemsQuery, {name: 'getItemsQuery'})
+
+const deleteEventItem = gql`
+    mutation deleteEventItem($token: String, $name: String) {
+     deleteEventItem(token: $token, name: $name)
+    }
+`;
+
+const ItemsListWithQueriesAndMutations = compose(
+  graphql(getItemsQuery, {name: 'getItemsQuery'}),
+  graphql(deleteEventItem, {name: 'deleteEventItem'}),
 )(ItemsList);
 
 
@@ -98,4 +112,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setTileListDataDispatcher, setViewDispatcher }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemsListWithQueries);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemsListWithQueriesAndMutations);

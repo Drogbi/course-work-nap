@@ -13,8 +13,8 @@ export default sportSectionsListData = {
   ],
   _onPress(item){
     switch(item.title){
-      case 'Swimming': this.props.setViewDispatcher('ItemsList'); break;
-      case 'Fitness': this.props.setViewDispatcher('ItemsList'); break;
+      case 'Swimming': this.props.setViewDispatcher('ItemsList', { title: 'Swimming' }); break;
+      case 'Fitness': this.props.setViewDispatcher('ItemsList', { title: 'Fitness' }); break;
       case 'Gym': this.props.setViewDispatcher('ItemsList', { title: 'Gym' }); break;
       case 'Tennis': this.props.setViewDispatcher('ItemsList', { title: 'Tennis' }); break;
     }
