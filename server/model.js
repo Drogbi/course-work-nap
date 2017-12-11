@@ -3,6 +3,13 @@ const Mongoose = require('mongoose');
 const UserSchema = Mongoose.Schema({
   email: String,
   password: String,
+  items: [{
+    name: String,
+    week: String,
+    items: [String],
+    price: String
+  }],
+  isAdmin: Boolean,
 });
 
 const EventItemSchema = Mongoose.Schema({
